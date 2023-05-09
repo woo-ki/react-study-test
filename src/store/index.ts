@@ -1,15 +1,15 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {type TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import itemsReducer from "./slices/itemsSlice.ts"
+import {BearStoreType, useBearStore} from "./slices/bearSlice.ts";
+import {FishStoreType, useFishStore} from "./slices/fishSlice.ts";
 
-export const store = configureStore({
-    reducer: {
-        items: itemsReducer
+type AppStoreType = {
+    bear: BearStoreType;
+    fish: FishStoreType;
+}
+
+export const useAppStore = () => {
+    const stores: AppStoreType = {
+        bear: useBearStore(),
+        fish: useFishStore()
     }
-});
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    return stores;
+};
