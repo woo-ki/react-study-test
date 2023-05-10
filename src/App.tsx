@@ -7,19 +7,32 @@ import Test from "./pages/Test.tsx";
 
 function App() {
     const [count, setCount] = useState(0);
-    const fish = useAppStore().fish;
-    const bear = useAppStore().bear;
+    const fish = useAppStore("fish");
+    const bear = useAppStore("bear");
+    const store = useAppStore();
 
     useEffect(() => {
-    }, [])
+        (async () => {
+            console.log("start");
+            fish.increase(3);
+            console.log(store);
+            console.log("end");
+        })()
+    }, [fish, store])
 
     return (
         <>
             <div>{JSON.stringify(bear)}</div>
-            <button onClick={() => {bear.increase(1)}}>으아아</button>
+            <button onClick={() => {
+                bear.increase(1)
+            }}>으아아
+            </button>
             <div>{JSON.stringify(fish)}</div>
-            <button onClick={() => {fish.increase(1)}}>으아아</button>
-            <Test />
+            <button onClick={() => {
+                fish.increase(1)
+            }}>으아아
+            </button>
+            <Test/>
             <div>
                 <a href="https://vitejs.dev" target="_blank">
                     <img src={viteLogo} className="logo" alt="Vite logo"/>

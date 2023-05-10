@@ -1,4 +1,4 @@
-import {type CreateStore, useCreate} from "../hooks/useCreate.ts";
+import {type SliceCreator, getCreate} from "../hooks/getCreate.ts";
 
 type FishState = {
     fishes: number;
@@ -9,7 +9,7 @@ type FishActions = {
 }
 export type FishStoreType = FishState & FishActions;
 
-const fishSlice: CreateStore<FishStoreType> = (set, get) => ({
+const fishSlice: SliceCreator<FishStoreType> = (set, get) => ({
     fishes: 0,
     increase: (by) => {
         set((state) => ({fishes: state.fishes + by}))
@@ -19,9 +19,5 @@ const fishSlice: CreateStore<FishStoreType> = (set, get) => ({
         console.log(`I am a ${get().fishes}fish`);
     }
 });
-const option = {
-    name: "fish-store",
-    enabled: process.env.NODE_ENV !== "production"
-}
 
-export const useFishStore = useCreate(fishSlice, option);
+export const useFishStore = getCreate(fishSlice, "fish-store");

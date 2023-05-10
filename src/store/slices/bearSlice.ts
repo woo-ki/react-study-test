@@ -1,4 +1,4 @@
-import {type CreateStore, useCreate} from "../hooks/useCreate.ts";
+import {type SliceCreator, getCreate} from "../hooks/getCreate.ts";
 
 type BearState = {
     bears: number;
@@ -6,10 +6,11 @@ type BearState = {
 type BearActions = {
     increase: (by: number) => void;
     description: () => void;
+    test: () => Promise<void>;
 }
 export type BearStoreType = BearState & BearActions;
 
-const bearSlice: CreateStore<BearStoreType> = (set, get) => ({
+const bearSlice: SliceCreator<BearStoreType> = (set, get) => ({
     bears: 0,
     increase: (by) => {
         set((state) => ({bears: state.bears + by}))
@@ -17,11 +18,12 @@ const bearSlice: CreateStore<BearStoreType> = (set, get) => ({
     },
     description: () => {
         console.log(`I am a ${get().bears}bear`);
+    },
+    test: async() => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        set((state) => ({bears: state.bears + 1}))
     }
 });
-const option = {
-    name: "bear-store",
-    enabled: process.env.NODE_ENV !== "production"
-}
 
-export const useBearStore = useCreate(bearSlice, option);
+export const useBearStore = getCreate(bearSlice, "bear-store");
+
