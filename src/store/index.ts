@@ -1,5 +1,5 @@
-import {BearStoreType, useBearStore} from "./slices/bearSlice.ts";
-import {FishStoreType, useFishStore} from "./slices/fishSlice.ts";
+import {type FishStoreType, useFishStore} from "./slices/fish";
+import {type BearStoreType, useBearStore} from "./slices/bear";
 
 type AppStoreType = {
     bear: BearStoreType;

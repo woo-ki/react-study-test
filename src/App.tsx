@@ -1,58 +1,22 @@
-import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {useAppStore} from "./store";
 import Test from "./pages/Test.tsx";
 
 function App() {
-    const [count, setCount] = useState(0);
-    const fish = useAppStore("fish");
-    const bear = useAppStore("bear");
-    const store = useAppStore();
-
-    useEffect(() => {
-        (async () => {
-            console.log("start");
-            fish.increase(3);
-            console.log(store);
-            console.log("end");
-        })()
-    }, [fish, store])
-
+    const {bears, increase: bearInc, description: descriptionBear, test} = useAppStore("bear");
+    const {fishes, increase: fishInc, description: descriptionFish} = useAppStore("fish");
+    const increaseBear = () => bearInc(1);
+    const increaseFish = () => fishInc(1);
     return (
         <>
-            <div>{JSON.stringify(bear)}</div>
-            <button onClick={() => {
-                bear.increase(1)
-            }}>으아아
-            </button>
-            <div>{JSON.stringify(fish)}</div>
-            <button onClick={() => {
-                fish.increase(1)
-            }}>으아아
-            </button>
+            <div>곰: {bears}</div>
+            <button onClick={increaseBear}>베어증가</button>
+            <button onClick={descriptionBear}>베어소개</button>
+            <button onClick={test}>베어테스트</button>
+            <div>생선: {fishes}</div>
+            <button onClick={increaseFish}>피시증가</button>
+            <button onClick={descriptionFish}>피시소개</button>
             <Test/>
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
         </>
     )
 }

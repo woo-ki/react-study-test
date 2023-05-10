@@ -24,4 +24,4 @@ const middlewaresImpl: MiddlewareImpl = (f, option) => (set, get, store) => {
             option))(set, get, store);
 }
 
-export const middlewares = middlewaresImpl as unknown as Middleware
+export const middlewares = middlewaresImpl as Middleware

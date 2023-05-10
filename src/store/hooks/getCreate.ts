@@ -12,5 +12,5 @@ export const getCreate = <T>(slice: StateCreator<T>, name: string): UseBoundStor
         name: name,
         enabled: process.env.NODE_ENV !== "production"
     }
-    return  (create<T>()(middlewares(slice, option)));
+    return create<T>()(middlewares(slice, option));
 };

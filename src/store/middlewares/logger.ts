@@ -43,4 +43,4 @@ const loggerImpl: LoggerImpl = (f, option) => (set, get, store) => {
     return f(loggedSet, get, store)
 }
 
-export const logger = loggerImpl as unknown as Logger
+export const logger = loggerImpl as Logger
