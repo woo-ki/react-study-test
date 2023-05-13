@@ -7,16 +7,18 @@ const Query1 = () => {
     const { isLoading, data, isFetching } = json.fetchTodo();
 
     useEffect(() => {
-        console.log("Query1 useEffect", data);
+        if (!(isLoading || isFetching) && data) {
+            if (data.result_code !== 200) {
+                alert(data.result_msg);
+            }
+        }
     }, [data]);
-    if (isLoading) return <p>Loading...</p>;
 
     if (data && data.result_code !== 200) return <p>An error has occurred: {data.result_msg}</p>;
 
+    if (isLoading || isFetching) return <p>Loading...</p>;
     return (
         <div>
-            {isLoading && <p>Loading...</p>}
-            {isFetching && <p>Loading...</p>}
             <h1>{JSON.stringify(data)}</h1>
         </div>
     );

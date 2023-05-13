@@ -1,19 +1,22 @@
 import {type FishStoreType, useFishStore} from "./slices/fish";
 import {type BearStoreType, useBearStore} from "./slices/bear";
+import {CommonStoreType, useCommonStore} from "./slices/common";
 
-type AppStoreType = {
+export type AppStoreType = {
     bear: BearStoreType;
     fish: FishStoreType;
+    common: CommonStoreType;
 }
 
-type StoreKey = keyof AppStoreType;
+export type StoreKey = keyof AppStoreType;
 
 export function useAppStore(): AppStoreType;
 export function useAppStore<K extends StoreKey>(storeKey: K): AppStoreType[K];
 export function useAppStore<K extends StoreKey>(storeKey?: K): AppStoreType | AppStoreType[K] {
     const stores: AppStoreType = {
         bear: useBearStore(),
-        fish: useFishStore()
+        fish: useFishStore(),
+        common: useCommonStore()
     }
     if (storeKey) {
         return stores[storeKey];

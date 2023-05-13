@@ -56,10 +56,6 @@ export async function api<T>(method: Method, url: string, data: Record<string, u
     optionConvert(url, axiosOption, option);
     return axios<T>(axiosOption)
         .then((result): DataReturn<T> => {
-            const random = Math.floor(Math.random() * 3);
-            if (random === 1) {
-                throw new Error();
-            }
             return {
                 result_code: 200,
                 result_data: result.data,
