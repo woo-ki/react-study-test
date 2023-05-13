@@ -8,6 +8,7 @@ import Query3 from "./pages/Query3";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./routes/Layout";
 import NoMatch from "./routes/NoMatch.tsx";
+import CustomAlert from "./components/common/CustomAlert";
 
 function App() {
     const {bears, increase: bearInc, description: descriptionBear, test} = useAppStore("bear");
@@ -15,10 +16,16 @@ function App() {
     const increaseBear = () => bearInc(1);
     const increaseFish = () => fishInc(1);
     const queryClient = new QueryClient();
-    const {loading} = useAppStore("common");
+    const {loading, alert_visibility, showAlert} = useAppStore("common");
+
+    const testAlert = async () => {
+        const res= await showAlert({title: "알림", content: "알림 내용이지라~", showCancel: true, cancel: "취소", confirm: "확인"});
+        console.log(res);
+    }
 
     return (
         <>
+            <button onClick={testAlert}>알럿테스트</button>
             <div>곰: {bears}</div>
             <button onClick={increaseBear}>베어증가</button>
             <button onClick={descriptionBear}>베어소개</button>
@@ -39,6 +46,7 @@ function App() {
                     </Routes>
                 </QueryClientProvider>
             </BrowserRouter>
+            {alert_visibility && <CustomAlert/>}
             {loading && (
                 <div id="loading_wrapper">
                     <div className="loading-overlay"/>
